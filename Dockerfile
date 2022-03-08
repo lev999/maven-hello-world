@@ -1,7 +1,5 @@
-FROM ubuntu:20.04
-RUN apt update
-RUN apt-get install -y openjdk-8-jdk
-RUN useradd -ms /bin/bash lev
+FROM openjdk:11-jdk
+RUN useradd lev
 USER lev
 COPY my-app/target/*.jar /opt/mycompany/app/
 RUN ls -ltr /opt/mycompany/app/
