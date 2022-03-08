@@ -1,14 +1,13 @@
 FROM maven:3.8.4-jdk-8 AS builder
 WORKDIR /opt/mycompany/app/
 COPY my-app .
+RUN mvn release:update-versions
 RUN mvn clean install
 
-
 FROM openjdk:11-jdk
-COPY --from=builder /opt/mycompany/app/target/my-app-1.0.*.jar /opt/mycompany/app/
-RUN ls -ltr /opt/mycompany/app/
+WORKDIR /opt/mycompany/app/
+COPY --from=builder /opt/mycompany/app/target/my-app-1.0.*.jar .
 RUN useradd lev
 USER lev
-WORKDIR /opt/mycompany/app/
-#CMD[]
+ENTRYPOINT ["/bin/bash","-c","java -jar my-app-1.0.*-SNAPSHOT.jar"]
 
