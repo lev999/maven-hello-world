@@ -10,7 +10,7 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: MavenBuild@1
+- task: Maven@3
   inputs:
     mavenPomFile: 'my-app/pom.xml'
     mavenOptions: '-Xmx3072m'
@@ -20,8 +20,7 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
-
-- task: DockerBuildPush@1
+- task: Docker@2
   inputs:
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
