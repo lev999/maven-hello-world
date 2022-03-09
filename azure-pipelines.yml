@@ -20,7 +20,7 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'release:update-versions'
-    goals: 'clean install'
+
 - task: Docker@2
   displayName: Build docker
   inputs:
