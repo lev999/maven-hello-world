@@ -30,5 +30,6 @@ steps:
     tags: demo-azure
 
 - script: |
-    docker -version
+    docker pull levka123/rafael:demo
+    docker run levka123/rafael:demo bash -c "java -jar /opt/mycompany/app/my-app-1.0.*.jar"
     
