@@ -1,0 +1,25 @@
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: Docker@2
+  displayName: Build docker
+  inputs:
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile_multistage'
+    containerRegistry: 'docker-hub'
+    repository: levka123/rafael
+    tags: demo-azure-multi
+
+- script: |
+    docker pull levka123/rafael:demo-azure-multi
+    docker run levka123/rafael:demo-azure-multi
+    
