@@ -37,9 +37,8 @@ steps:
     containerRegistry: 'docker-hub'
     repository: levka123/rafael
     tags: demo-azure
-    container: myapp
 - script: echo "I can run inside the container (it starts by default)"
   target:
-    container: myapp
+    container: levka123/rafael:demo-azure
 
     
