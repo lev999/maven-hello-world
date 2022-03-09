@@ -29,5 +29,6 @@ steps:
     repository: levka123/rafael
     tags: demo-azure
 
-
+- script: |
+    docker -version
     
