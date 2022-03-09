@@ -21,11 +21,12 @@ steps:
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
 - task: Docker@2
+  displayName: Build docker
   inputs:
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
-    displayName: 'Push the Docker image to Dockerhub'
     containerRegistry: 'docker-hub'
-
     repository: levka123/rafael
     tags: demo-azure
+
+    
