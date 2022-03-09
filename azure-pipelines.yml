@@ -29,4 +29,17 @@ steps:
     repository: levka123/rafael
     tags: demo-azure
 
+
+- task: Docker@2
+  displayName: Run docker 
+  inputs:
+    command: 'start'
+    containerRegistry: 'docker-hub'
+    repository: levka123/rafael
+    tags: demo-azure
+    container: myapp
+- script: echo "I can run inside the container (it starts by default)"
+  target:
+    container: myapp
+
     
