@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: maven:3.8.4-jdk-8
+  vmImage: levka123/rafael:demo
 
 steps:
 - task: Maven@3
