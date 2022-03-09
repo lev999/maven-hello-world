@@ -24,4 +24,5 @@ steps:
   inputs:
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
-
+    displayName: 'Push the Docker image to Dockerhub'
+    containerRegistry: 'docker-hub'
