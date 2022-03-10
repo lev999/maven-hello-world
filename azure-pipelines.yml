@@ -28,6 +28,8 @@ steps:
 
 - script: |
    xmlstarlet --help
+   apt  install xmlstarlet
+   xmlstarlet --help
   displayName: parser
 - task: Maven@3
   displayName: 'build artifact with Maven'
