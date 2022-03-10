@@ -45,6 +45,8 @@ steps:
 - script: |
     mkdir -p my-app/target/
     touch ./my-app/target/my-app-1.0.4.jar
+    ls my-app/target/$tag_const_part*
+    
     fullname=$(ls my-app/target/$tag_const_part*);
     cutFront=${fullname##$tag_const_part};
     echo 1=$cutFront;
