@@ -38,10 +38,7 @@ steps:
     javaHomeOption: 'JDKVersion'
     jdkVersionOption: '1.8'
     jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'clean install '
-    options: Dversion=555
+    goals: 'package -Dversion=555'
 
 - script: |
     fullname=$(ls my-app/target/my-app-1.0.*);
