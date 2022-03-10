@@ -60,11 +60,6 @@ steps:
 
 
 - script: |
-   tag=PPPP;
-   echo "##vso[task.setvariable variable=artifact_tag]$tag"
-  displayName: first setting
-
-- script: |
       echo $(artifact_tag) 
   displayName: Second variable pass
 
