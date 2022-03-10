@@ -31,16 +31,16 @@ steps:
 #    goals: 'release:update-versions'
 
 #- task: Maven@3
-  displayName: 'build artifact with Maven'
-  inputs:
-    mavenPomFile: 'my-app/pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'clean install'
+#  displayName: 'build artifact with Maven'
+#  inputs:
+#    mavenPomFile: 'my-app/pom.xml'
+#    mavenOptions: '-Xmx3072m'
+#    javaHomeOption: 'JDKVersion'
+#    jdkVersionOption: '1.8'
+#    jdkArchitectureOption: 'x64'
+#    publishJUnitResults: true
+#    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+#    goals: 'clean install'
 
 - script: |
     touch my-app/target/my-app-1.0.4.jar
