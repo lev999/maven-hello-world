@@ -45,7 +45,7 @@ steps:
 - script: |
     touch /opt/mycompany/app/my-app-1.0.1.jar
     ls -ltr .
-    ls -ltr target
+    ls -ltr my-app/target
     fullname=$(ls $tag_const_part*);
     cutFront=${fullname##$tag_const_part};
     echo $cutFront;
