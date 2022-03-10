@@ -56,7 +56,7 @@ steps:
     Dockerfile: '**/Dockerfile'
     containerRegistry: 'docker-hub'
     repository: levka123/rafael
-    tags: 'v$(artifact_tag)'
+    tags: $[variables.artifact_tag] 
 
 - script: |
     echo var=$(artifact_tag)
