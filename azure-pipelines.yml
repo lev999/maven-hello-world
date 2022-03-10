@@ -45,11 +45,7 @@ steps:
     final_tag=$prefix$increm_num
     echo "##vso[task.setvariable variable=artifact_tag]$final_tag"
     mv -f my-app/target/my-app-1.0.* my-app/target/my-app-$final_tag
-  displayName: parser
-
-- script: |
-      echo taaag=$(artifact_tag) 
-  displayName: print tag
+  displayName: parse pom.xml and increment tag
 
 - task: Docker@2
   inputs:
@@ -58,7 +54,7 @@ steps:
     containerRegistry: 'docker-hub'
     repository: levka123/my-app
     tags: $(artifact_tag) 
-  displayName: 'docker build and push'
+  displayName: 'build and push docker image'
 
 - script: |
     echo var=$(artifact_tag)
