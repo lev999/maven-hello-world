@@ -45,10 +45,12 @@ steps:
 - script: 
     fullname=$(ls $tag_const_part*)
     cutFront=${fullname##$tag_const_part}
+    echo $cutFront
     cutFrontBack=${cutFront%%.jar}
+    echo $cutFrontBack    
     tag=$cutFrontBack
     echo "##vso[task.setvariable variable=artifact_tag]$tag"
-    echo $artifact_tag
+    echo $(artifact_tag)
   displayName: 'parsing artifact tag value'
 
 - script: |
