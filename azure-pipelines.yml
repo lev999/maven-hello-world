@@ -43,8 +43,11 @@ steps:
 - script: |
   displayName: parse artifact tag 
     fullname=$(ls my-app/target/$tag_const_part*);
+    echo 1=$fullname
     cutFront=${fullname##'my-app/target/$tag_const_part'};
+    echo 2=$cutFront
     cutFrontBack=${cutFront%%.jar};
+    echo 3=$cutFrontBack
     tag=$cutFrontBack;
     echo "##vso[task.setvariable variable=artifact_tag]$tag"
     echo var=$(artifact_tag)
