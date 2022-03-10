@@ -9,8 +9,6 @@ trigger:
 variables:
 - name: artifact_tag
   value: error value 
-- name: tag_const_part
-  value: my-app-1.0.
 
 pool:
   vmImage: ubuntu-latest
@@ -43,7 +41,7 @@ steps:
 - script: |
     fullname=$(ls my-app/target/my-app-1.0.*);
     echo 1=$fullname
-    cutFront=${fullname##'my-app/target/$tag_const_part'};
+    cutFront=${fullname##'my-app/target/my-app-1.0.'};
     echo 2=$cutFront
     cutFrontBack=${cutFront%%.jar};
     echo 3=$cutFrontBack
