@@ -37,8 +37,9 @@ steps:
     goals: 'package'
 
 - script: |
-   sudo apt  install xmlstarlet
+    sudo apt  install xmlstarlet
     fullname=$(cat my-app/pom.xml | sed -e 's/ xmlns.*=".*"//g' | xmlstarlet sel -t -v '//project/version')
+    echo fullname= $fullname
     number=${fullname##*.*.}
     increment=$( expr $number + 1)
     final_version=${fullname%%$number}
