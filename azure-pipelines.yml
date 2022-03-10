@@ -39,17 +39,15 @@ steps:
 - script: |
     sudo apt  install xmlstarlet
     fullname=$(cat my-app/pom.xml | sed -e 's/ xmlns.*=".*"//g' | xmlstarlet sel -t -v '//project/version')
-    echo fullname= $fullname
+    echo fullname=$fullname
     number=${fullname##*.*.}
     increment=$( expr $number + 1)
     final_version=${fullname%%$number}
-    final_tag $final_version$increment
+    final_tag=$final_version$increment
     echo "##vso[task.setvariable variable=artifact_tag]$final_tag"
     mv -f my-app/target/my-app-1.0.* my-app/target/my-app-$final_tag
     ls -ltr my-app/target/
   displayName: parser
-
-
 
 - script: |
       echo taaag=$(artifact_tag) 
