@@ -26,14 +26,6 @@ steps:
 #    testResultsFiles: '**/surefire-reports/TEST-*.xml'
 #    goals: 'release:update-versions'
 
-- script: |
-   sudo apt  install xmlstarlet
-    fullname=$(cat my-app/pom.xml | sed -e 's/ xmlns.*=".*"//g' | xmlstarlet sel -t -v '//project/version')
-    number=${fullname##*.*.}
-    increment=$( expr $number + 1)
-    final_version=${fullname%%$number}
-    echo $final_version$increment
-  displayName: parser
 - task: Maven@3
   displayName: 'build artifact with Maven'
   inputs:
@@ -45,28 +37,31 @@ steps:
     goals: 'package'
 
 - script: |
-    fullname=$(ls my-app/target/my-app-1.0.*);
-    echo 1=$fullname
-    cutFront=${fullname##my-app/target/my-app-1.0.};
-    echo 2=$cutFront
-    cutFrontBack=${cutFront%%.jar};
-    echo 3=$cutFrontBack
-    tag=$cutFrontBack;
-    echo "##vso[task.setvariable variable=artifact_tag]$tag"
-  displayName: parse artifact tag 
+   sudo apt  install xmlstarlet
+    fullname=$(cat my-app/pom.xml | sed -e 's/ xmlns.*=".*"//g' | xmlstarlet sel -t -v '//project/version')
+    number=${fullname##*.*.}
+    increment=$( expr $number + 1)
+    final_version=${fullname%%$number}
+    final_tag $final_version$increment
+    echo "##vso[task.setvariable variable=artifact_tag]$final_tag"
+    mv -f my-app/target/my-app-1.0.* my-app/target/my-app-$final_tag
+    ls -ltr my-app/target/
+  displayName: parser
+
+
 
 - script: |
       echo taaag=$(artifact_tag) 
   displayName: print tag
 
 - task: Docker@2
-  displayName: $(artifact_tag)
   inputs:
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
     containerRegistry: 'docker-hub'
     repository: levka123/rafael
     tags: $(artifact_tag) 
+  displayName: 'docker build and push'
 
 - script: |
     echo var=$(artifact_tag)
