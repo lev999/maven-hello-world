@@ -39,14 +39,12 @@ steps:
 - script: |
     sudo apt  install xmlstarlet
     fullname=$(cat my-app/pom.xml | sed -e 's/ xmlns.*=".*"//g' | xmlstarlet sel -t -v '//project/version')
-    echo fullname=$fullname
-    number=${fullname##*.*.}
-    increment=$( expr $number + 1)
-    final_version=${fullname%%$number}
-    final_tag=$final_version$increment
+    init_num=${fullname##*.*.}
+    increm_num=$( expr $init_num + 1)
+    prefix=${fullname%%$init_num}
+    final_tag=$prefix$increm_num
     echo "##vso[task.setvariable variable=artifact_tag]$final_tag"
     mv -f my-app/target/my-app-1.0.* my-app/target/my-app-$final_tag
-    ls -ltr my-app/target/
   displayName: parser
 
 - script: |
@@ -58,12 +56,12 @@ steps:
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
     containerRegistry: 'docker-hub'
-    repository: levka123/rafael
+    repository: levka123/my-app
     tags: $(artifact_tag) 
   displayName: 'docker build and push'
 
 - script: |
     echo var=$(artifact_tag)
-    docker pull levka123/rafael:$(artifact_tag)
-    docker run levka123/rafael:$(artifact_tag) bash -c "java -jar /opt/mycompany/app/my-app-1.0.$(artifact_tag).jar"
+    docker pull levka123/my-app:$(artifact_tag)
+    docker run levka123/my-app:$(artifact_tag) bash -c "java -jar /opt/mycompany/app/my-app-$(artifact_tag).jar"
   displayName: 'pull and run docker image'
