@@ -60,7 +60,7 @@ steps:
 
 - bash:
     echo "##vso[task.setvariable variable=artifact_tag]$tag"
-    displayName: NEW_BASH 
+  displayName: NEW_BASH 
 - script: |
   displayName: NEWvalue=
       echo ${{variables.artifact_tag}} 
