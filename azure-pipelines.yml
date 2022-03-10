@@ -30,7 +30,7 @@ steps:
 #    testResultsFiles: '**/surefire-reports/TEST-*.xml'
 #    goals: 'release:update-versions'
 
-- task: Maven@3
+#- task: Maven@3
   displayName: 'build artifact with Maven'
   inputs:
     mavenPomFile: 'my-app/pom.xml'
@@ -44,7 +44,7 @@ steps:
 
 - script: |
     touch my-app/target/my-app-1.0.4.jar
-    fullname=$(ls $tag_const_part*);
+    fullname=$(ls my-app/target/$tag_const_part*);
     cutFront=${fullname##$tag_const_part};
     echo 1=$cutFront;
     cutFrontBack=${cutFront%%.jar};
