@@ -43,7 +43,9 @@ steps:
 #    goals: 'clean install'
 
 - script: |
-    touch my-app/target/my-app-1.0.4.jar
+    touch ./my-app/target/my-app-1.0.4.jar
+    ls -ltr .
+    ls -ltr ./my-app/target
     fullname=$(ls my-app/target/$tag_const_part*);
     cutFront=${fullname##$tag_const_part};
     echo 1=$cutFront;
