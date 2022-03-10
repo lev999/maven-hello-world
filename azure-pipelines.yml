@@ -6,6 +6,10 @@
 trigger:
 - master
 
+variables:
+- name: artifact_tag
+  value: error value 
+
 pool:
   vmImage: ubuntu-latest
 
@@ -23,27 +27,36 @@ steps:
 #    goals: 'release:update-versions'
 
 - task: Maven@3
-  displayName: 'build artifact'
+  displayName: 'Build artifact with Maven'
   inputs:
     mavenPomFile: 'my-app/pom.xml'
     mavenOptions: '-Xmx3072m'
     javaHomeOption: 'JDKVersion'
     jdkVersionOption: '1.8'
     jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'clean install'
+    goals: 'package'
+
+- script: |
+    sudo apt  install xmlstarlet
+    fullname=$(cat my-app/pom.xml | sed -e 's/ xmlns.*=".*"//g' | xmlstarlet sel -t -v '//project/version')
+    init_num=${fullname##*.*.}
+    increm_num=$( expr $init_num + 1)
+    prefix=${fullname%%$init_num}
+    final_tag=$prefix$increm_num
+    echo "##vso[task.setvariable variable=artifact_tag]$final_tag"
+    mv -f my-app/target/my-app-* my-app/target/my-app-$final_tag.jar
+  displayName: Parse pom.xml and increment tag
 
 - task: Docker@2
-  displayName: Build docker
   inputs:
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
     containerRegistry: 'docker-hub'
-    repository: levka123/rafael
-    tags: demo-azure
+    repository: levka123/my-app
+    tags: $(artifact_tag) 
+  displayName: 'Build and push docker image'
 
 - script: |
-    docker pull levka123/rafael:demo
-    docker run levka123/rafael:demo bash -c "java -jar /opt/mycompany/app/my-app-1.0.*.jar"
-    
+    docker pull levka123/my-app:$(artifact_tag)
+    docker run levka123/my-app:$(artifact_tag) bash -c "java -jar /opt/mycompany/app/my-app-$(artifact_tag).jar"
+  displayName: 'Pull and run docker image'
