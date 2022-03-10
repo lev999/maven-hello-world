@@ -27,7 +27,7 @@ steps:
 #    goals: 'release:update-versions'
 
 - task: Maven@3
-  displayName: 'build artifact with Maven'
+  displayName: 'Build artifact with Maven'
   inputs:
     mavenPomFile: 'my-app/pom.xml'
     mavenOptions: '-Xmx3072m'
@@ -45,8 +45,7 @@ steps:
     final_tag=$prefix$increm_num
     echo "##vso[task.setvariable variable=artifact_tag]$final_tag"
     mv -f my-app/target/my-app-* my-app/target/my-app-$final_tag.jar
-    ls -ltr my-app/target/
-  displayName: parse pom.xml and increment tag
+  displayName: Parse pom.xml and increment tag
 
 - task: Docker@2
   inputs:
@@ -55,9 +54,9 @@ steps:
     containerRegistry: 'docker-hub'
     repository: levka123/my-app
     tags: $(artifact_tag) 
-  displayName: 'build and push docker image'
+  displayName: 'Build and push docker image'
 
 - script: |
     docker pull levka123/my-app:$(artifact_tag)
     docker run levka123/my-app:$(artifact_tag) bash -c "java -jar /opt/mycompany/app/my-app-$(artifact_tag).jar"
-  displayName: 'pull and run docker image'
+  displayName: 'Pull and run docker image'
