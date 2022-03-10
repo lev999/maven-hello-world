@@ -58,6 +58,11 @@ steps:
     echo artifact_tag=$(artifact_tag)
   displayName: Set new variable value
 
+
+- bash: echo "##vso[task.setvariable variable=artifact_tag]$tag"
+- bash: echo var=$(artifact_tag)
+
+
 - bash: |
     echo "##vso[task.setvariable variable=artifact_tag]$tag"
   displayName: NEW_BASH 
@@ -80,8 +85,6 @@ steps:
     docker run levka123/rafael:demo bash -c "java -jar /opt/mycompany/app/my-app-1.0.*.jar"
     
 
-- bash: echo "##vso[task.setvariable variable=artifact_tag]secondValue"
-- bash: echo var=$(artifact_tag)
 
-- script: 
-    docker pull levka123/rafael:$(artifact_tag)
+#- script: 
+#    docker pull levka123/rafael:$(artifact_tag)
