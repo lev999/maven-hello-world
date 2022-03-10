@@ -27,8 +27,8 @@ steps:
 #    goals: 'release:update-versions'
 
 - script: |
-   xmlstarlet --help
-   apt  install xmlstarlet
+   whoami
+   sudo apt  install xmlstarlet
    xmlstarlet --help
   displayName: parser
 - task: Maven@3
