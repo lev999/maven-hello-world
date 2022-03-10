@@ -26,6 +26,9 @@ steps:
 #    testResultsFiles: '**/surefire-reports/TEST-*.xml'
 #    goals: 'release:update-versions'
 
+- script: |
+   xmlstarlet --help
+  displayName: parser
 - task: Maven@3
   displayName: 'build artifact with Maven'
   inputs:
