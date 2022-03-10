@@ -7,7 +7,7 @@ COPY my-app .
 RUN mvn clean install
 RUN mv -f target/my-app-*.jar target/my-app-$tag.jar
 
-FROM openjdk:8-jdk
+FROM openjdk:11-jdk
 WORKDIR /opt/mycompany/app/
 COPY --from=builder /opt/mycompany/app/target/my-app-*.jar .
 RUN useradd lev
