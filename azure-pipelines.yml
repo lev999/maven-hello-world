@@ -10,7 +10,7 @@ variables:
 - name: artifact_tag
   value: error value 
 - name: tag_const_part
-  value: my-app/target/my-app-1.0.
+  value: my-app-1.0.
 
 pool:
   vmImage: ubuntu-latest
@@ -41,8 +41,7 @@ steps:
     goals: 'clean install'
 
 - script: |
-
-    fullname=$(ls my-app/target/$tag_const_part*);
+    fullname=$(ls my-app/target/my-app-1.0.*);
     echo 1=$fullname
     cutFront=${fullname##'my-app/target/$tag_const_part'};
     echo 2=$cutFront
