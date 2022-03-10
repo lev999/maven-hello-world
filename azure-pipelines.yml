@@ -41,7 +41,7 @@ steps:
     goals: 'clean install'
 
 - script: |
-  displayName: parse artifact tag 
+
     fullname=$(ls my-app/target/$tag_const_part*);
     echo 1=$fullname
     cutFront=${fullname##'my-app/target/$tag_const_part'};
@@ -51,7 +51,7 @@ steps:
     tag=$cutFrontBack;
     echo "##vso[task.setvariable variable=artifact_tag]$tag"
     echo var=$(artifact_tag)
-
+  displayName: parse artifact tag 
 
 - script: |
       echo taaag=$(artifact_tag) 
