@@ -52,7 +52,7 @@ steps:
   displayName: 'parsing artifact tag value'
 
 - script: |
-    echo var=$(artifact_tag)
+      echo ${{ variables.artifact_tag }} 
 
 - task: Docker@2
   displayName: Build docker
