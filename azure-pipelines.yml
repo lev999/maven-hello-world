@@ -27,7 +27,6 @@ steps:
 #    goals: 'release:update-versions'
 
 - script: |
-   whoami
    sudo apt  install xmlstarlet
    xmlstarlet --help
   displayName: parser
@@ -44,10 +43,9 @@ steps:
     goals: 'clean install'
 
 - script: |
-    PATH=$(my-app/target/my-app-1.0.)
-    fullname=$(ls $PATH*);
+    fullname=$(ls my-app/target/my-app-1.0.*);
     echo 1=$fullname
-    cutFront=${fullname##$PATH};
+    cutFront=${fullname##my-app/target/my-app-1.0.};
     echo 2=$cutFront
     cutFrontBack=${cutFront%%.jar};
     echo 3=$cutFrontBack
