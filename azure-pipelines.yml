@@ -28,8 +28,11 @@ steps:
 
 - script: |
    sudo apt  install xmlstarlet
-    version=$(cat pom.xml | sed -e 's/ xmlns.*=".*"//g' | xmlstarlet sel -t -v '//project/version')
-    echo $version
+    fullname=$(cat pom.xml | sed -e 's/ xmlns.*=".*"//g' | xmlstarlet sel -t -v '//project/version')
+    number=${fullname##*.*.}
+    increment=$( expr $number + 1)
+    final_version=${fullname%%$number}
+    echo $final_version$increment
   displayName: parser
 - task: Maven@3
   displayName: 'build artifact with Maven'
