@@ -53,8 +53,9 @@ steps:
     cutFrontBack=${cutFront%%.jar};
     echo 2=$cutFrontBack    ;
     tag=$cutFrontBack;
+    echo tag=$tag
     echo "##vso[task.setvariable variable=artifact_tag]$tag"
-    echo 3=$(artifact_tag)
+    echo artifact_tag=$(artifact_tag)
   displayName: Set new variable value
 
 - script: |
