@@ -59,7 +59,9 @@ steps:
   displayName: Set new variable value
 
 
-- bash: echo "##vso[task.setvariable variable=artifact_tag]$tag"
+- bash:
+   tag=PPPP
+   echo "##vso[task.setvariable variable=artifact_tag]$tag"
 - bash: echo var=$(artifact_tag)
 
 
