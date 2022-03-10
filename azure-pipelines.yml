@@ -28,7 +28,8 @@ steps:
 
 - script: |
    sudo apt  install xmlstarlet
-   xmlstarlet --help
+    version=$(cat pom.xml | sed -e 's/ xmlns.*=".*"//g' | xmlstarlet sel -t -v '//project/version')
+    echo $version
   displayName: parser
 - task: Maven@3
   displayName: 'build artifact with Maven'
@@ -38,8 +39,7 @@ steps:
     javaHomeOption: 'JDKVersion'
     jdkVersionOption: '1.8'
     jdkArchitectureOption: 'x64'
-    
-    goals: 'release:2.4.1:update-versions'
+    goals: 'package'
 
 - script: |
     fullname=$(ls my-app/target/my-app-1.0.*);
