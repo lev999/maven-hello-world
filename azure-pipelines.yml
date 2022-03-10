@@ -48,7 +48,7 @@ steps:
     ls my-app/target/$tag_const_part*
     
     fullname=$(ls my-app/target/$tag_const_part*);
-    cutFront=${fullname##my-app/target/my-app-1.0.};
+    cutFront=${fullname##'my-app/target/my-app-1.0.'};
     echo 1=$cutFront;
     cutFrontBack=${cutFront%%.jar};
     echo 2=$cutFrontBack    ;
