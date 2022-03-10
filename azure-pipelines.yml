@@ -56,12 +56,13 @@ steps:
     echo tag=$tag
     echo "##vso[task.setvariable variable=artifact_tag]$tag"
     echo artifact_tag=$(artifact_tag)
-  displayName: Set new variable value
+  displayName: first try
 
 
 - bash:
-   tag=PPPP
-   echo "##vso[task.setvariable variable=artifact_tag]$(tag)"
+   tag=PPPP;
+   echo "##vso[task.setvariable variable=artifact_tag]$tag"
+  displayName: first setting
 
 - script: |
       echo $(artifact_tag) 
