@@ -30,20 +30,20 @@ steps:
 #    testResultsFiles: '**/surefire-reports/TEST-*.xml'
 #    goals: 'release:update-versions'
 
-- task: Maven@3
-  displayName: 'build artifact with Maven'
-  inputs:
-    mavenPomFile: 'my-app/pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'clean install'
+#- task: Maven@3
+#  displayName: 'build artifact with Maven'
+#  inputs:
+#    mavenPomFile: 'my-app/pom.xml'
+#    mavenOptions: '-Xmx3072m'
+#    javaHomeOption: 'JDKVersion'
+#    jdkVersionOption: '1.8'
+#    jdkArchitectureOption: 'x64'
+#    publishJUnitResults: true
+#    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+#    goals: 'clean install'
 
 - script: |
-
+    touch /opt/mycompany/app/my-app-1.0.1.jar
     fullname=$(ls $tag_const_part*);
     cutFront=${fullname##$tag_const_part};
     echo $cutFront;
