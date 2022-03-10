@@ -50,7 +50,7 @@ steps:
     echo var=$(artifact_tag)
 
 - task: Docker@2
-  displayName: 'build and push docker='$(artifact_tag)
+  displayName: $(artifact_tag)
   inputs:
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
