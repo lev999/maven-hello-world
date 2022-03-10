@@ -39,7 +39,7 @@ steps:
 
 - script: |
     docker build -f Dockerfile_multistage -t levka123/rafael:$(artifact_tag) --build-arg tag=$final_tag
-    dokcer push levka123/rafael:$(artifact_tag)
+    docker push levka123/rafael:$(artifact_tag)
   displayName: Build and push docker 
 
 - script: |
