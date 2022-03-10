@@ -14,20 +14,8 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-- task: Maven@3
-  displayName: 'update tag'
-  inputs:
-    mavenPomFile: 'my-app/pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'release:update-versions'
-
 #- task: Maven@3
-#  displayName: 'build artifact with Maven'
+#  displayName: 'update tag'
 #  inputs:
 #    mavenPomFile: 'my-app/pom.xml'
 #    mavenOptions: '-Xmx3072m'
@@ -36,7 +24,19 @@ steps:
 #    jdkArchitectureOption: 'x64'
 #    publishJUnitResults: true
 #    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-#    goals: 'clean install'
+#    goals: 'release:update-versions'
+
+- task: Maven@3
+  displayName: 'build artifact with Maven'
+  inputs:
+    mavenPomFile: 'my-app/pom.xml'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    goals: 'clean install'
 
 - script: |
     PATH=$(my-app/target/my-app-1.0.)
