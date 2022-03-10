@@ -10,7 +10,7 @@ variables:
 - name: artifact_tag
   value: error value 
 - name: tag_const_part
-  value: my-app-1.0.
+  value: my-app/target/my-app-1.0.
 
 pool:
   vmImage: ubuntu-latest
