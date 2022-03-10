@@ -44,7 +44,8 @@ steps:
     prefix=${fullname%%$init_num}
     final_tag=$prefix$increm_num
     echo "##vso[task.setvariable variable=artifact_tag]$final_tag"
-    mv -f my-app/target/my-app-1.0.* my-app/target/my-app-$final_tag
+    mv -f my-app/target/my-app-* my-app/target/my-app-$final_tag.jar
+    ls -ltr my-app/target/
   displayName: parse pom.xml and increment tag
 
 - task: Docker@2
@@ -57,7 +58,6 @@ steps:
   displayName: 'build and push docker image'
 
 - script: |
-    echo var=$(artifact_tag)
     docker pull levka123/my-app:$(artifact_tag)
     docker run levka123/my-app:$(artifact_tag) bash -c "java -jar /opt/mycompany/app/my-app-$(artifact_tag).jar"
   displayName: 'pull and run docker image'
