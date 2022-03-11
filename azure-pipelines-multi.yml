@@ -35,7 +35,6 @@ steps:
     prefix=${init_num%%*.*.*-SNAPSHOT.jar}
     
     echo $prefix
-  displayName:'TESTSSS'
 
 - bash: |
     fullname=$(docker run -t levka123/my-app-multi:tmp  bash -c " ls my-app-*")
