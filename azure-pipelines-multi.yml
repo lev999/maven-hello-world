@@ -28,21 +28,21 @@ steps:
     echo "##vso[task.setvariable variable=artifact_tag]$final_tag"
   displayName: Parse pom.xml and increment tag
 
-#- task: Docker@2
-#  displayName: Build docker
-#  inputs:
-#    command: 'buildAndPush'
-#    Dockerfile: '**/Dockerfile_multistage'
-#    containerRegistry: 'docker-hub'
-#    repository: levka123/rafael
-#    tags: $(artifact_tag)
+- task: Docker@2
+  displayName: Build docker
+  inputs:
+    command: 'build'
+    Dockerfile: '**/Dockerfile_multistage'
+    containerRegistry: 'docker-hub'
+    repository: levka123/my-app-multi
+    tags: $(artifact_tag)
 
 - script: |
-    docker build -f Dockerfile_multistage -t levka123/my-app:$(artifact_tag) --build-arg tag=$final_tag .
-    docker push levka123/my-app:$(artifact_tag)
-  displayName: Build and push docker 
+    #docker build -f Dockerfile_multistage -t levka123/my-app-multi:$(artifact_tag) --build-arg tag=$(artifact_tag) .
+    docker push levka123/my-app-multi:$(artifact_tag)
+  displayName: Push docker 
 
 - script: |
-    docker pull levka123/my-app:$(artifact_tag)
-    docker run levka123/my-app:$(artifact_tag)
+    docker pull levka123/my-app-multi:$(artifact_tag)
+    docker run levka123/my-app-multi:$(artifact_tag)
   displayName: Pull and run docker
