@@ -52,7 +52,7 @@ steps:
 - script: |
     docker tag levka123/my-app-multi:tmp levka123/my-app-multi:$(artifact_tag)
     docker run levka123/my-app-multi:$(artifact_tag)
-    docker login -u levka123 -p $(docker_pswd)
+#    docker login -u levka123 -p $(docker_pswd)
     docker push levka123/my-app-multi:$(artifact_tag)
   displayName: Push docker 
 
