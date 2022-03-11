@@ -34,7 +34,6 @@ steps:
     fullname=$(docker run -t $(DOCKER-REPO):tmp  bash -c " ls my-app-*")
     echo fullname=$fullname
     no_postfix=${fullname%%-SNAPSHOT\.jar*}
-    echo no_postfix2=$no_postfix
     no_prefix_no_postfix=${no_postfix##my-app-}
     echo "##vso[task.setvariable variable=artifact_tag]$no_prefix_no_postfix"
     echo no_prefix_no_postfix=$no_prefix_no_postfix 
