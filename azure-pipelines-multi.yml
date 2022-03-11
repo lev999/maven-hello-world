@@ -33,8 +33,8 @@ steps:
 
 - script: |
     fullname=$(docker run -t levka123/my-app-multi:tmp  bash -c " ls my-app-*")
-    no_postfix=${fullname%%-SNAPSHOT.jar}
-    no_prefix=${no_postfix##my-app-}
+    init_num=${fullname%%-SNAPSHOT.jar}
+    no_prefix=${init_num##my-app-}
     echo "##vso[task.setvariable variable=artifact_tag]$no_prefix"
     echo $no_prefix 
   displayName: Parse file name  
