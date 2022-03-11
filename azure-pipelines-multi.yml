@@ -46,10 +46,11 @@ steps:
 #    tags: $(artifact_tag)
 
 
-#- script: |
-#    docker build -f Dockerfile_multistage -t levka123/my-app-multi:$(artifact_tag) --build-arg tag=$(artifact_tag) .
-#    docker push levka123/my-app-multi:$(artifact_tag)
-#  displayName: Push docker 
+- script: |
+    docker tag levka123/my-app-multi:tmp levka123/my-app-multi:$(artifact_tag)
+    docker run levka123/my-app-multi:$(artifact_tag)
+    docker push levka123/my-app-multi:$(artifact_tag)
+  displayName: Push docker 
 
 - script: |
     docker pull levka123/my-app-multi:$(artifact_tag)
