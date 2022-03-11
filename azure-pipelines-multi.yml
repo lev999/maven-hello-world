@@ -31,7 +31,7 @@ steps:
     repository: levka123/my-app-multi
     tags: tmp
 
-- script: |
+- bash: |
     fullname=$(docker run -t levka123/my-app-multi:tmp  bash -c " ls my-app-*")
     init_num=${fullname%%-SNAPSHOT.jar}
     no_prefix=${init_num##my-app-}
