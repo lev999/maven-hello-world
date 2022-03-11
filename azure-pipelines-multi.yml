@@ -19,8 +19,6 @@ variables:
 
 steps:
 
-
-
 - task: Docker@2
   displayName: Build docker
   inputs:
@@ -33,7 +31,7 @@ steps:
 - bash: |
     fullname=$(docker run -t levka123/my-app-multi:tmp  bash -c " ls my-app-*")
     echo fullname=$fullname
-    init_num=${fullname%%*-SNAPSHOT.jar}
+    init_num=${fullname%%.jar}
     echo init_num=$init_num
     no_prefix=${init_num##my-app-}
     echo "##vso[task.setvariable variable=artifact_tag]$no_prefix"
