@@ -32,7 +32,7 @@ steps:
     fullname=my-app-1.0.1-SNAPSHOT.jar
     init_num=${fullname##my-app-}
     echo init_num=$init_num
-    prefix=${init_num%%jar}
+    prefix=${init_num%%\.jar}
     echo prefix=$prefix
 
 - bash: |
