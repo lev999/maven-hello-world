@@ -31,10 +31,9 @@ steps:
 - script: |
     fullname=my-app-1.0.1-SNAPSHOT.jar
     init_num=${fullname##my-app-}
-    echo init_num
+    echo init_num=init_num
     prefix=${init_num%%*.*.*-SNAPSHOT.jar}
-    
-    echo $prefix
+    echo prefix=$prefix
 
 - bash: |
     fullname=$(docker run -t levka123/my-app-multi:tmp  bash -c " ls my-app-*")
