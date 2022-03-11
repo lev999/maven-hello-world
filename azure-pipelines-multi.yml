@@ -19,14 +19,14 @@ variables:
 
 steps:
 
-#- task: Docker@2
-#  displayName: Build docker
-#  inputs:
-#    command: 'build'
-#    Dockerfile: '**/Dockerfile_multistage'
-#    containerRegistry: 'docker-hub'
-#    repository: levka123/my-app-multi
-#    tags: tmp
+- task: Docker@2
+  displayName: Build docker
+  inputs:
+    command: 'build'
+    Dockerfile: '**/Dockerfile_multistage'
+    containerRegistry: 'docker-hub'
+    repository: levka123/my-app-multi
+    tags: tmp
 
 - bash: |
     fullname=$(docker run -t levka123/my-app-multi:tmp  bash -c " ls my-app-*")
@@ -36,16 +36,6 @@ steps:
     echo "##vso[task.setvariable variable=artifact_tag]$no_prefix_no_postfix"
     echo $no_prefix_no_postfix 
   displayName: Parse file name  
-
-#- task: Docker@2
-#  displayName: Push docker
-#  inputs:
-#    command: 'push'
-#    Dockerfile: '**/Dockerfile_multistage'
-#    containerRegistry: 'docker-hub'
-#    repository: levka123/my-app-multi
-#    tags: $(artifact_tag)
-
 
 - script: |
     docker tag levka123/my-app-multi:tmp levka123/my-app-multi:$(artifact_tag)
