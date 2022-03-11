@@ -18,15 +18,6 @@ variables:
 steps:
 
 
-- script: |
-    sudo apt  install xmlstarlet
-    fullname=$(cat my-app/pom.xml | sed -e 's/ xmlns.*=".*"//g' | xmlstarlet sel -t -v '//project/version')
-    init_num=${fullname##*.*.}
-    increm_num=$( expr $init_num + 1)
-    prefix=${fullname%%$init_num}
-    final_tag=$prefix$increm_num
-    echo "##vso[task.setvariable variable=artifact_tag]$final_tag"
-  displayName: Parse pom.xml and increment tag
 
 - task: Docker@2
   displayName: Build docker
