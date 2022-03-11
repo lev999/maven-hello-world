@@ -13,8 +13,10 @@ pool:
 variables:
 - name: artifact_tag
   value: error value 
-- name: docker_pswd
+- name: DOCKER-PASSWD
   value: $(DOCKER-SECRET)
+- name: DOCKER-REPO
+  value: levka123/my-app-multi
 
 
 steps:
@@ -25,26 +27,28 @@ steps:
     command: 'build'
     Dockerfile: '**/Dockerfile_multistage'
     containerRegistry: 'docker-hub'
-    repository: levka123/my-app-multi
+    repository: $(DOCKER-REPO)
     tags: tmp
 
 - bash: |
-    fullname=$(docker run -t levka123/my-app-multi:tmp  bash -c " ls my-app-*")
+    fullname=$(docker run -t $(DOCKER-REPO):tmp  bash -c " ls my-app-*")
+    echo fullname=$fullname
     echo fullname=$fullname
     no_postfix=${fullname%%-SNAPSHOT\.jar}
+    echo no_postfix=$no_postfix
     no_prefix_no_postfix=${no_postfix##my-app-}
     echo "##vso[task.setvariable variable=artifact_tag]$no_prefix_no_postfix"
     echo $no_prefix_no_postfix 
   displayName: Parse file name  
 
 - script: |
-    docker tag levka123/my-app-multi:tmp levka123/my-app-multi:$(artifact_tag)
-    docker run levka123/my-app-multi:$(artifact_tag)
-    docker login -u levka123 -p $(docker_pswd)
-    docker push levka123/my-app-multi:$(artifact_tag)
+    docker tag $(DOCKER-REPO):tmp $(DOCKER-REPO):$(artifact_tag)
+    docker run $(DOCKER-REPO):$(artifact_tag)
+    docker login -u levka123 -p $(DOCKER-PASSWD)
+    docker push $(DOCKER-REPO):$(artifact_tag)
   displayName: Push docker 
 
 - script: |
-    docker pull levka123/my-app-multi:$(artifact_tag)
-    docker run levka123/my-app-multi:$(artifact_tag)
+    docker pull $(DOCKER-REPO):$(artifact_tag)
+    docker run $(DOCKER-REPO):$(artifact_tag)
   displayName: Pull and run docker
