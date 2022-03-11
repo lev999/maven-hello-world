@@ -14,7 +14,7 @@ variables:
 - name: artifact_tag
   value: error value 
 - name: docker_pswd
-  value: 1aba336d-81ed-4e55-8320-478ebd8e5658 
+  value: $(DOCKER-SECRET)
 
 
 steps:
