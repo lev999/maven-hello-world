@@ -28,22 +28,13 @@ steps:
 #    repository: levka123/my-app-multi
 #    tags: tmp
 
-- script: |
-    fullname=my-app-1.0.1-SNAPSHOT.jar
-    init_num=${fullname##my-app-}
-    echo init_num=$init_num
-    no_prefix=${init_num%%-SNAPSHOT\.jar}
-    echo no_prefix=$no_prefix
-    echo "##vso[task.setvariable variable=artifact_tag]$no_prefix"    
-
 - bash: |
     fullname=$(docker run -t levka123/my-app-multi:tmp  bash -c " ls my-app-*")
     echo fullname=$fullname
-    init_num=${fullname%%.jar}
-    echo init_num=$init_num
-    no_prefix=${init_num##my-app-}
-    echo "##vso[task.setvariable variable=artifact_tag]$no_prefix"
-    echo $no_prefix 
+    no_postfix=${fullname%%-SNAPSHOT\.jar}
+    no_prefix_no_postfix=${no_postfix##my-app-}
+    echo "##vso[task.setvariable variable=artifact_tag]$no_prefix_no_postfix"
+    echo $no_prefix_no_postfix 
   displayName: Parse file name  
 
 #- task: Docker@2
