@@ -32,8 +32,9 @@ steps:
     fullname=my-app-1.0.1-SNAPSHOT.jar
     init_num=${fullname##my-app-}
     echo init_num=$init_num
-    prefix=${init_num%%\.jar}
-    echo prefix=$prefix
+    no_prefix=${init_num%%-SNAPSHOT\.jar}
+    echo no_prefix=$no_prefix
+    echo "##vso[task.setvariable variable=artifact_tag]$no_prefix"    
 
 - bash: |
     fullname=$(docker run -t levka123/my-app-multi:tmp  bash -c " ls my-app-*")
